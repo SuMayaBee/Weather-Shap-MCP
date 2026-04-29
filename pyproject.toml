@@ -1,0 +1,50 @@
+[project]
+name = "weather-shap-mcp"
+version = "0.1.0"
+description = "MCP server for 7-day weather intelligence — rain, UV, heat & air quality with real SHAP explainability"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "SuMayaBee", email = "sumaiya.0fficial369@gmail.com" }
+]
+keywords = ["mcp", "weather", "shap", "xgboost", "explainability", "ai", "forecast"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Atmospheric Science",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "httpx>=0.27.0",
+    "numpy>=1.26.0",
+    "pandas>=2.1.0",
+    "scikit-learn>=1.4.0",
+    "xgboost>=2.0.0",
+    "shap>=0.45.0",
+    "matplotlib>=3.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/SuMayaBee/weather-mcp"
+Repository = "https://github.com/SuMayaBee/weather-mcp"
+
+[project.scripts]
+weather-mcp = "weather_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["weather_mcp"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["venv", ".venv", "dist", ".cursor", ".vscode", "*.ipynb"]

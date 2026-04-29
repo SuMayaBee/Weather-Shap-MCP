@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "weather": {
+      "command": "/home/sumayabee/Desktop/sportintel-mcp/weather-mcp/venv/bin/weather-mcp"
+    }
+  }
+}
