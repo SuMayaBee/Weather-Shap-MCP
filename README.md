@@ -106,9 +106,15 @@ Edit `~/.config/Claude/claude_desktop_config.json` (Linux) or
 > *"Will it rain in Dhaka this week?"*
 > → 7-day bar chart with daily rain probabilities
 
+<img width="1146" height="827" alt="image" src="https://github.com/user-attachments/assets/10fa161a-3bdc-4b98-881f-7db81edfd096" />
+
+
 **SHAP explanation — rain**
 > *"Why is it predicted to rain on day 1?"*
 > → SHAP waterfall plot + plain-English: *"Heavy forecast precipitation (7.9 mm) strongly pushes rain chance up. Warm overnight low (26°C) moderately pushes rain chance up..."*
+
+<img width="1146" height="827" alt="image" src="https://github.com/user-attachments/assets/3368cbef-c637-45a7-954d-55a40e32e68c" />
+
 
 **UV + heat**
 > *"How hot and sunny will it be in Dubai this week?"*
