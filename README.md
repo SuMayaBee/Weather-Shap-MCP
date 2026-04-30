@@ -58,15 +58,6 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ---
 
-### ☀️ UV + heat forecast
-
-**Ask:** **`"How hot and sunny will it be in Dubai this week?"`**
-
-**Returns:** Dual-axis chart with UV index bars and feels-like temperature line
-
-<img width="900" alt="UV and heat forecast" src="https://github.com/user-attachments/assets/1e0e0002-efbb-41f2-b034-71205c87549b" />
-
----
 
 ### 😷 Air quality forecast
 
@@ -85,6 +76,16 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 **Returns:** SHAP waterfall: *"Very low wind (3 km/h, pollutants accumulate) strongly worsens air quality. No rain (0 mm, no washout) moderately worsens air quality..."*
 
 <img width="900" alt="SHAP air quality explanation" src="https://github.com/user-attachments/assets/5014ccc4-2d02-413e-b415-c69a22d99050" />
+
+---
+
+### ☀️ UV + heat forecast
+
+**Ask:** **`"How hot and sunny will it be in Dubai this week?"`**
+
+**Returns:** Dual-axis chart with UV index bars and feels-like temperature line
+
+<img width="900" alt="UV and heat forecast" src="https://github.com/user-attachments/assets/1e0e0002-efbb-41f2-b034-71205c87549b" />
 
 ---
 
