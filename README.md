@@ -7,6 +7,18 @@
 
 ---
 
+## Motivation
+
+Every weather app tells you *what* — 70% chance of rain, UV index 8, air quality moderate. But nobody ever tells you *why*.
+
+And that's the part that actually matters. If you know it's going to rain because of a big overnight humidity build-up, you make different decisions than if it's just a passing cloud. If the air quality is poor because wind dropped to almost zero, you understand it'll clear up by evening. The number alone doesn't give you that.
+
+So I built this. You ask a plain question — *"why will it rain on Thursday?"* — and you get a real answer: which weather signals are driving the prediction, how much each one is pushing it up or down, and what that means in plain English. No guessing, no vague "weather patterns suggest...". The explanations come from [SHAP](https://shap.readthedocs.io/), a tool used by data scientists to understand exactly why a machine learning model made a specific decision.
+
+The fun part is that SHAP is almost always used in research notebooks — you run it after training, look at the charts, and that's it. This project uses it live, inside a chat, so you can ask *why* about any city, any day, right now.
+
+---
+
 ## What makes this different
 
 Most weather MCP servers return raw forecast numbers. This one also tells you **why** — using real [SHAP](https://shap.readthedocs.io/) `TreeExplainer` values from trained XGBoost models:
@@ -23,7 +35,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### Rain forecast
 
-**Ask:** `"Will it rain in Dhaka this week?"`
+**Ask:** **`"Will it rain in Dhaka this week?"`**
 
 **Returns:** 7-day bar chart with daily rain probabilities
 
@@ -33,7 +45,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### SHAP explanation — why will it rain?
 
-**Ask:** `"Why is it predicted to rain on day 1?"`
+**Ask:** **`"Why is it predicted to rain on day 1?"`**
 
 **Returns:** SHAP waterfall plot + plain-English — *"Heavy forecast precipitation (7.9 mm) strongly pushes rain chance up. Warm overnight low (26°C) moderately pushes rain chance up..."*
 
@@ -43,7 +55,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### UV + heat forecast
 
-**Ask:** `"How hot and sunny will it be in Dubai this week?"`
+**Ask:** **`"How hot and sunny will it be in Dubai this week?"`**
 
 **Returns:** Dual-axis chart — UV index bars + feels-like temperature line
 
@@ -53,7 +65,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### Air quality forecast
 
-**Ask:** `"Is the air safe to breathe in Delhi today?"`
+**Ask:** **`"Is the air safe to breathe in Delhi today?"`**
 
 **Returns:** AQI bars with PM2.5/PM10 lines and WHO limit markers
 
@@ -63,7 +75,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### SHAP explanation — why is air quality poor?
 
-**Ask:** `"Why is the air quality so poor on day 1?"`
+**Ask:** **`"Why is the air quality so poor on day 1?"`**
 
 **Returns:** SHAP waterfall — *"Very low wind (3 km/h — pollutants accumulate) strongly worsens air quality. No rain (0 mm — no washout) moderately worsens air quality..."*
 
@@ -73,7 +85,7 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ### Best day finder
 
-**Ask:** `"What's the best day for an outdoor event in Tokyo this week?"`
+**Ask:** **`"What's the best day for an outdoor event in Tokyo this week?"`**
 
 **Returns:** *"Thursday (score 82/100 — Excellent). Low rain chance (12%), comfortable temperature (24°C), UV moderate."*
 
