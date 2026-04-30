@@ -2,9 +2,8 @@
 
 > **Weather intelligence MCP server with real SHAP explainability** — rain, UV, heat & air quality forecasts for any city, powered by XGBoost + `shap.TreeExplainer` + live [Open-Meteo](https://open-meteo.com/) data. No API key required.
 
-[![PyPI](https://img.shields.io/pypi/v/weather-shap-mcp)](https://pypi.org/project/weather-shap-mcp/)
-[![Python](https://img.shields.io/pypi/pyversions/weather-shap-mcp)](https://pypi.org/project/weather-shap-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
 ---
 
@@ -17,6 +16,68 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 - **SHAP waterfall plots** returned as inline images directly in the chat
 - **Trained on 2 years of live historical data** per city — models adapt to local climate patterns
 - **Zero API keys** — all data from Open-Meteo's free endpoints
+
+---
+
+## Example conversations
+
+### Rain forecast
+
+**Ask:** `"Will it rain in Dhaka this week?"`
+
+**Returns:** 7-day bar chart with daily rain probabilities
+
+<img width="900" alt="Rain forecast" src="https://github.com/user-attachments/assets/10fa161a-3bdc-4b98-881f-7db81edfd096" />
+
+---
+
+### SHAP explanation — why will it rain?
+
+**Ask:** `"Why is it predicted to rain on day 1?"`
+
+**Returns:** SHAP waterfall plot + plain-English — *"Heavy forecast precipitation (7.9 mm) strongly pushes rain chance up. Warm overnight low (26°C) moderately pushes rain chance up..."*
+
+<img width="900" alt="SHAP rain explanation" src="https://github.com/user-attachments/assets/3368cbef-c637-45a7-954d-55a40e32e68c" />
+
+---
+
+### UV + heat forecast
+
+**Ask:** `"How hot and sunny will it be in Dubai this week?"`
+
+**Returns:** Dual-axis chart — UV index bars + feels-like temperature line
+
+<img width="900" alt="UV and heat forecast" src="https://github.com/user-attachments/assets/1e0e0002-efbb-41f2-b034-71205c87549b" />
+
+---
+
+### Air quality forecast
+
+**Ask:** `"Is the air safe to breathe in Delhi today?"`
+
+**Returns:** AQI bars with PM2.5/PM10 lines and WHO limit markers
+
+<img width="900" alt="Air quality forecast" src="https://github.com/user-attachments/assets/4437a4f8-6d2e-4ade-bc4f-dce73fdf4076" />
+
+---
+
+### SHAP explanation — why is air quality poor?
+
+**Ask:** `"Why is the air quality so poor on day 1?"`
+
+**Returns:** SHAP waterfall — *"Very low wind (3 km/h — pollutants accumulate) strongly worsens air quality. No rain (0 mm — no washout) moderately worsens air quality..."*
+
+<img width="900" alt="SHAP air quality explanation" src="https://github.com/user-attachments/assets/5014ccc4-2d02-413e-b415-c69a22d99050" />
+
+---
+
+### Best day finder
+
+**Ask:** `"What's the best day for an outdoor event in Tokyo this week?"`
+
+**Returns:** *"Thursday (score 82/100 — Excellent). Low rain chance (12%), comfortable temperature (24°C), UV moderate."*
+
+<img width="900" alt="Best day finder" src="https://github.com/user-attachments/assets/175a0194-aa6f-4d84-b7ad-ee0fdb305708" />
 
 ---
 
@@ -37,24 +98,43 @@ Most weather MCP servers return raw forecast numbers. This one also tells you **
 
 ---
 
-## Install
+## Setup
+
+### 1. Clone the repo
 
 ```bash
-pip install weather-shap-mcp
+git clone https://github.com/SuMayaBee/weather-shap-mcp.git
+cd weather-shap-mcp
 ```
 
-Verify:
+### 2. Create a virtual environment and install dependencies
 
 ```bash
-weather-mcp
+python -m venv venv
+
+# Activate (Linux / macOS)
+source venv/bin/activate
+
+# Activate (Windows)
+venv\Scripts\activate
+
+pip install -e .
+```
+
+### 3. Verify it works
+
+```bash
+venv/bin/weather-mcp
 # Server starts and waits for MCP connections over stdio — Ctrl+C to stop
 ```
+
+On Windows: `venv\Scripts\weather-mcp.exe`
 
 ---
 
 ## Connect to Cursor
 
-The repo includes a `.cursor/mcp.json` — just open the folder in Cursor and it picks it up automatically.
+The repo includes a `.cursor/mcp.json` — open the cloned folder directly in Cursor and it picks it up automatically.
 
 Or add manually in **Cursor Settings → Tools & MCP → Add new MCP server**:
 
@@ -62,22 +142,24 @@ Or add manually in **Cursor Settings → Tools & MCP → Add new MCP server**:
 {
   "mcpServers": {
     "weather": {
-      "command": "weather-mcp"
+      "command": "/absolute/path/to/weather-shap-mcp/venv/bin/weather-mcp"
     }
   }
 }
 ```
 
+Replace `/absolute/path/to/` with the actual path where you cloned the repo.
+
 ## Connect to VS Code
 
-The repo includes a `.vscode/mcp.json`. Or add to your workspace settings:
+The repo includes a `.vscode/mcp.json`. Or add to your workspace `.vscode/mcp.json`:
 
 ```json
 {
   "servers": {
     "weather": {
       "type": "stdio",
-      "command": "weather-mcp"
+      "command": "/absolute/path/to/weather-shap-mcp/venv/bin/weather-mcp"
     }
   }
 }
@@ -92,53 +174,11 @@ Edit `~/.config/Claude/claude_desktop_config.json` (Linux) or
 {
   "mcpServers": {
     "weather": {
-      "command": "weather-mcp"
+      "command": "/absolute/path/to/weather-shap-mcp/venv/bin/weather-mcp"
     }
   }
 }
 ```
-
----
-
-## Example conversations
-
-**Rain forecast**
-> *"Will it rain in Dhaka this week?"*
-> → 7-day bar chart with daily rain probabilities
-
-<img width="1146" height="827" alt="image" src="https://github.com/user-attachments/assets/10fa161a-3bdc-4b98-881f-7db81edfd096" />
-
-
-**SHAP explanation — rain**
-> *"Why is it predicted to rain on day 1?"*
-> → SHAP waterfall plot + plain-English: *"Heavy forecast precipitation (7.9 mm) strongly pushes rain chance up. Warm overnight low (26°C) moderately pushes rain chance up..."*
-
-<img width="1146" height="827" alt="image" src="https://github.com/user-attachments/assets/3368cbef-c637-45a7-954d-55a40e32e68c" />
-
-
-**UV + heat**
-> *"How hot and sunny will it be in Dubai this week?"*
-> → Dual-axis chart: UV index bars + feels-like temperature
-
-<img width="1170" height="524" alt="image" src="https://github.com/user-attachments/assets/1e0e0002-efbb-41f2-b034-71205c87549b" />
-
-**Air quality**
-> *"Is the air safe to breathe in Delhi today?"*
-> → AQI bars with PM2.5/PM10 lines and WHO limit markers
-
-<img width="1206" height="693" alt="image" src="https://github.com/user-attachments/assets/4437a4f8-6d2e-4ade-bc4f-dce73fdf4076" />
-
-**SHAP explanation — air quality**
-> *"Why is the air quality so poor on day 1?"*
-> → SHAP waterfall: *"Very low wind (3 km/h — pollutants accumulate) strongly worsens air quality. No rain (0mm — no washout) moderately worsens air quality..."*
-
-<img width="1212" height="563" alt="image" src="https://github.com/user-attachments/assets/5014ccc4-2d02-413e-b415-c69a22d99050" />
-
-**Best day finder**
-> *"What's the best day for an outdoor event in Tokyo this week?"*
-> → *"Thursday (score 82/100 — Excellent). Low rain chance (12%), comfortable temperature (24°C), UV moderate."*
-
-<img width="1202" height="578" alt="image" src="https://github.com/user-attachments/assets/175a0194-aa6f-4d84-b7ad-ee0fdb305708" />
 
 ---
 
