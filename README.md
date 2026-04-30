@@ -120,21 +120,25 @@ Edit `~/.config/Claude/claude_desktop_config.json` (Linux) or
 > *"How hot and sunny will it be in Dubai this week?"*
 > → Dual-axis chart: UV index bars + feels-like temperature
 
-**SHAP explanation — heat**
-> *"Why will it feel so much hotter than the actual temperature?"*
-> → SHAP waterfall: *"Very low wind (2 km/h — no cooling) strongly makes it feel hotter. High max temperature (41°C) strongly makes it feel hotter..."*
+<img width="1170" height="524" alt="image" src="https://github.com/user-attachments/assets/1e0e0002-efbb-41f2-b034-71205c87549b" />
 
 **Air quality**
 > *"Is the air safe to breathe in Delhi today?"*
 > → AQI bars with PM2.5/PM10 lines and WHO limit markers
 
+<img width="1206" height="693" alt="image" src="https://github.com/user-attachments/assets/4437a4f8-6d2e-4ade-bc4f-dce73fdf4076" />
+
 **SHAP explanation — air quality**
 > *"Why is the air quality so poor on day 1?"*
 > → SHAP waterfall: *"Very low wind (3 km/h — pollutants accumulate) strongly worsens air quality. No rain (0mm — no washout) moderately worsens air quality..."*
 
+<img width="1212" height="563" alt="image" src="https://github.com/user-attachments/assets/5014ccc4-2d02-413e-b415-c69a22d99050" />
+
 **Best day finder**
 > *"What's the best day for an outdoor event in Tokyo this week?"*
 > → *"Thursday (score 82/100 — Excellent). Low rain chance (12%), comfortable temperature (24°C), UV moderate."*
+
+<img width="1202" height="578" alt="image" src="https://github.com/user-attachments/assets/175a0194-aa6f-4d84-b7ad-ee0fdb305708" />
 
 ---
 
